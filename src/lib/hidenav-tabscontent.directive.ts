@@ -2,7 +2,7 @@ import { AfterViewInit, ContentChild, Directive, ElementRef, forwardRef, Host, O
 import { IonContent } from '@ionic/angular';
 import { HidenavService } from './hidenav-service.service';
 import { SuperTabs } from '@ionic-super-tabs/angular';
-import $ from 'jquery';
+import { closestAncestorContaining, setAttributeOnMatches } from './hidenav-dom';
 
 @Directive({
 	selector: '[hidenav-tabscontent]'
@@ -20,7 +20,9 @@ export class HidenavTabscontentDirective implements AfterViewInit, OnDestroy {
 	ngAfterViewInit() {
 		this.name = this.globals.requestName();
 		this.contentElem.nativeElement.setAttribute('hidenav-tabscontent', this.name);
-		$('[hidenav-header]', $(this.contentElem.nativeElement).parents().get().find(itm => $(itm).find('[hidenav-header]').length)).attr('hidenav-header', this.name);
+		setAttributeOnMatches(
+			closestAncestorContaining(this.contentElem.nativeElement, '[hidenav-header]'),
+			'[hidenav-header]', 'hidenav-header', this.name);
 		if (this.name) {
 			if (!this.globals.data[this.name]) {
 				this.globals.data[this.name] = [];
