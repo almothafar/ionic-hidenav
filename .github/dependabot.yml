@@ -1,0 +1,105 @@
+version: 2
+
+# This workspace is frozen at Angular 15 deliberately, not by neglect: ngcc was
+# removed in Angular 16, and @ionic-super-tabs/angular@7.0.8 is a View Engine
+# build that still needs it. The `ignore` rules below are therefore load-bearing
+# — anything that drags the toolchain past 15 produces a workspace that cannot
+# build at all, not merely one that warns.
+#
+# Note that Dependabot does not run on archived repositories, so once this one is
+# archived everything here goes quiet until someone unarchives it.
+
+updates:
+  # ── npm dependencies (Angular 15 workspace) ───────────────────────────
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+      time: "06:00"
+      timezone: "Etc/UTC"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+    groups:
+      angular:
+        patterns:
+          - "@angular/*"
+          - "@angular-devkit/*"
+          - "@angular-eslint/*"
+          - "ng-packagr"
+      ionic:
+        patterns:
+          - "@ionic/*"
+          - "@ionic-super-tabs/*"
+      linting:
+        patterns:
+          - "eslint"
+          - "@typescript-eslint/*"
+          - "eslint-plugin-*"
+      testing:
+        patterns:
+          - "@playwright/test"
+          - "jsdom"
+          - "tsx"
+      types:
+        patterns:
+          - "@types/*"
+    ignore:
+      # The Angular 15 ceiling. Without these Dependabot proposes exactly the
+      # partial bump it already opened by hand in #9 — CLI 22 and ng-packagr 22
+      # against @angular/core 15, which cannot compile.
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@angular-devkit/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@angular-eslint/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "ng-packagr"
+        update-types: ["version-update:semver-major"]
+      # Angular 15 accepts TypeScript >=4.8.2 <5.0.0, so blocking majors is
+      # enough: there is no 4.10, the next release up from 4.9.5 is 5.0.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      # rxjs 8 and eslint 9 both drop the versions this toolchain pins against
+      # (@angular-eslint 15 needs eslint ^8, @typescript-eslint 5 with it).
+      - dependency-name: "rxjs"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "eslint"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@typescript-eslint/*"
+        update-types: ["version-update:semver-major"]
+      # zone.js is 0.x, so its breaking releases land as semver *minors*: Angular
+      # 15 wants ~0.13.0 and 0.14 targets Angular 17+. Minor has to be ignored
+      # here too, unlike every other entry in this list.
+      - dependency-name: "zone.js"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
+      # Ionic 8 requires Angular 16+, which this package's peerDependencies
+      # (^6.0.0 || ^7.0.0) already exclude.
+      - dependency-name: "@ionic/angular"
+        update-types: ["version-update:semver-major"]
+
+  # ── GitHub Actions (CI + Pages workflows) ─────────────────────────────
+  # Nothing here is pinned to the Angular ceiling, so actions are free to float
+  # to their current majors. This is the half that actually earns its keep: the
+  # workflows went five years without a bump last time.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci(deps)"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
