@@ -5,6 +5,12 @@
 /tmp
 /out-tsc
 
+# e2e artifacts
+/playwright-report
+/test-results
+/blob-report
+/.playwright
+
 # dependencies
 /node_modules
 

@@ -92,7 +92,7 @@ export class HidenavShService {
 				elem.style.position = 'absolute';
 				parentElem.style.width = '100%';
 				elem.style.width = '100%';
-				this.waitforelem(name, 'this.data[name].header.nativeElement.scrollHeight', 'proceedShrinkExpand');
+				this.waitforelem(name, () => this.data[name].header.nativeElement.scrollHeight, 'proceedShrinkExpand');
 			}
 		} else if (parent) {
 			const header = this.data[parent].header;
@@ -129,29 +129,32 @@ export class HidenavShService {
 				supertabsToolbar.style.position = 'absolute';
 				supertabsToolbar.style.transform = 'translate3d(0, ' + this.data[name].shrinkexpandheaderHeight + 'px, 0)';
 				parentElem.style.zIndex = 101;
-				// eslint-disable-next-line max-len
-				this.waitforelemTabs(name, 'this.data[this.data[name].parent].header.nativeElement.scrollHeight', 'this.data[this.data[name].parent].tabscontentElem.nativeElement.querySelector(\'super-tabs-toolbar\').clientHeight', 'proceedShrinkExpandTabs');
+				this.waitforelemTabs(
+					name,
+					() => this.data[this.data[name].parent].header.nativeElement.scrollHeight,
+					() => this.data[this.data[name].parent].tabscontentElem.nativeElement
+						.querySelector('super-tabs-toolbar').clientHeight,
+					'proceedShrinkExpandTabs');
 			}
 		}
 	}
 
-	waitforelem(name, evaluate, func) {
-		// eslint-disable-next-line no-eval
-		const x = eval(evaluate);
-		if (!{x} || x < this.data[name].shrinkexpandheaderHeight) {
-			window.requestAnimationFrame(this.waitforelem.bind(this, name, evaluate, func));
+	// `measure` used to be a code string passed through eval(); it is now a plain
+	// closure, so the library works under a strict Content-Security-Policy.
+	waitforelem(name, measure: () => number, func) {
+		const x = measure();
+		if (x < this.data[name].shrinkexpandheaderHeight) {
+			window.requestAnimationFrame(this.waitforelem.bind(this, name, measure, func));
 		} else {
 			this[func](name);
 		}
 	}
 
-	waitforelemTabs(name, evaluate, evaluate2, func) {
-		// eslint-disable-next-line no-eval
-		const x = eval(evaluate);
-		// eslint-disable-next-line no-eval
-		const y = eval(evaluate2);
-		if (!{x} || x < this.data[name].shrinkexpandheaderHeight || !{y} || y === 0) {
-			window.requestAnimationFrame(this.waitforelemTabs.bind(this, name, evaluate, evaluate2, func));
+	waitforelemTabs(name, measure: () => number, measureTabs: () => number, func) {
+		const x = measure();
+		const y = measureTabs();
+		if (x < this.data[name].shrinkexpandheaderHeight || y === 0) {
+			window.requestAnimationFrame(this.waitforelemTabs.bind(this, name, measure, measureTabs, func));
 		} else {
 			this[func](name);
 		}

@@ -1,7 +1,7 @@
 import { AfterViewInit, Directive, ElementRef, Host, Input, OnDestroy, Optional, Self } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { HidenavService } from './hidenav-service.service';
-import $ from 'jquery';
+import { closestAncestorContaining, setAttributeOnMatches } from './hidenav-dom';
 
 @Directive({
 	selector: '[hidenav-content]'
@@ -20,19 +20,21 @@ export class HidenavContentDirective implements AfterViewInit, OnDestroy {
 	ngAfterViewInit() {
 		if (!this.contentElem.nativeElement.hasAttribute('hidenav-tabspage')) {
 			this.name = this.globals.requestName();
-			$(this.contentElem.nativeElement).attr('hidenav-content', this.name);
-			$('[hidenav-header]', $(this.contentElem.nativeElement).parents().get().find(itm => $(itm).find('[hidenav-header]').length)).attr('hidenav-header', this.name);
+			this.contentElem.nativeElement.setAttribute('hidenav-content', this.name);
+			setAttributeOnMatches(
+				closestAncestorContaining(this.contentElem.nativeElement, '[hidenav-header]'),
+				'[hidenav-header]', 'hidenav-header', this.name);
 			this.start();
 		} else {
 			let counter = 0;
 			const int = setInterval(() => {
-				const x = $(this.contentElem.nativeElement).closest('[hidenav-tabscontent]').attr('hidenav-tabscontent');
+				const x = this.contentElem.nativeElement.closest('[hidenav-tabscontent]')?.getAttribute('hidenav-tabscontent');
 				counter++;
 				if (x && x.length > 0) {
-					this.parent = $(this.contentElem.nativeElement).closest('[hidenav-tabscontent]').attr('hidenav-tabscontent');
+					this.parent = x;
 					this.name = this.globals.requestTabName(this.parent);
-					$(this.contentElem.nativeElement).attr('hidenav-content', this.name);
-					$(this.contentElem.nativeElement).attr('hidenav-tabspage', this.parent);
+					this.contentElem.nativeElement.setAttribute('hidenav-content', this.name);
+					this.contentElem.nativeElement.setAttribute('hidenav-tabspage', this.parent);
 					this.start();
 					clearInterval(int);
 				} else if (counter > 50) {
