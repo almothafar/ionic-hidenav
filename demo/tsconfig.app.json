@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "..",
+    "outDir": "../dist/out-tsc/demo",
+    "types": [],
+    "paths": {
+      "@almothafar/ionic-hidenav": ["dist/hidenav"]
+    }
+  },
+  "files": ["main.ts"],
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}

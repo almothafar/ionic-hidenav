@@ -52,16 +52,16 @@ export class HidenavService {
 		const parent = this.data[name].parent;
 		const content = this.data[name].content;
 		const contentElem = this.data[name].contentElem;
-		if (this.data[name].scrollTop === null) {
+		if (this.data[name].scrollTop == null) {
 			this.data[name].scrollTop = 0;
 		}
-		if (this.data[name].lastscroll === null) {
+		if (this.data[name].lastscroll == null) {
 			this.data[name].lastscroll = 0;
 		}
-		if (this.data[name].direction === null) {
+		if (this.data[name].direction == null) {
 			this.data[name].direction = '';
 		}
-		if (this.data[name].tapping === null) {
+		if (this.data[name].tapping == null) {
 			this.data[name].tapping = false;
 		}
 		content.scrollEvents = true;
