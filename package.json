@@ -42,7 +42,7 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "15.2.11",
+    "@angular-devkit/build-angular": "21.2.24",
     "@angular-eslint/builder": "15.2.1",
     "@angular-eslint/eslint-plugin": "15.2.1",
     "@angular-eslint/eslint-plugin-template": "15.2.1",
@@ -51,7 +51,7 @@
     "@angular/cli": "15.2.11",
     "@angular/common": "15.2.10",
     "@angular/compiler": "15.2.10",
-    "@angular/compiler-cli": "15.2.10",
+    "@angular/compiler-cli": "22.1.6",
     "@angular/core": "15.2.10",
     "@angular/forms": "15.2.10",
     "@angular/language-service": "15.2.10",
