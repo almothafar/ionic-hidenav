@@ -102,6 +102,16 @@ test.describe('library: stretch header', () => {
 		expect(await hostHeight(page)).toBeCloseTo(56, 0);
 	});
 
+	test('the back button navigates home', async ({ page }) => {
+		// The stretch header replaces ion-toolbar entirely, so the back button has
+		// to live in the projected #static bar — which the library absolutely-
+		// positions over the hero, and which the demo marks pointer-events: none.
+		await page.locator('[data-testid="stretch-back"]').click();
+
+		await expect(page.locator('[data-testid="link-stretch-header"]')).toBeVisible();
+		expect(new URL(page.url()).hash).toBe('#/');
+	});
+
 	test('expand() grows the header and shrink() restores it', async ({ page }) => {
 		const collapsed = await hostHeight(page);
 

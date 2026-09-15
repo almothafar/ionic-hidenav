@@ -6,7 +6,10 @@ import { HidenavStretchheaderComponent } from '@almothafar/ionic-hidenav';
 	template: `
 		<hidenav-stretchheader #sh header-height="56" opacity-factor="6" data-testid="stretch-header">
 			<div #shrinkexpand class="demo-hero">Pull down to stretch</div>
-			<div #static class="demo-static-title">Stretch header</div>
+			<div #static class="demo-static-title">
+				<ion-back-button defaultHref="/" color="light" data-testid="stretch-back"></ion-back-button>
+				<span>Stretch header</span>
+			</div>
 		</hidenav-stretchheader>
 
 		<ion-content hidenav-sh-content data-testid="stretch-content">
