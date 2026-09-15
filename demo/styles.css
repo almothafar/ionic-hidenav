@@ -1,0 +1,35 @@
+/* Demo-only styling. The library itself ships no global CSS. */
+:root {
+	--demo-hero-height: 220px;
+}
+
+.demo-hero {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: var(--demo-hero-height);
+	background: linear-gradient(135deg, #3880ff 0%, #5260ff 100%);
+	color: #fff;
+	font-size: 1.4rem;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+}
+
+.demo-static-title {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 0.75rem 1rem;
+	color: #fff;
+	font-weight: 600;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+	pointer-events: none;
+}
+
+.demo-note {
+	padding: 1rem;
+	color: var(--ion-color-medium, #92949c);
+	font-size: 0.875rem;
+	line-height: 1.5;
+}

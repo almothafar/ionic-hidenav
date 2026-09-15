@@ -2,7 +2,13 @@
 
 Auto-hiding and stretchable (collapsible) headers for Ionic + Angular.
 
-[![npm version][npm-image]][npm-url] [![license](https://img.shields.io/npm/l/@almothafar/ionic-hidenav)](LICENSE.md) [![Angular](https://img.shields.io/badge/Angular-14%20%7C%2015-dd0031?logo=angular&logoColor=white)](#compatibility) [![Ionic](https://img.shields.io/badge/Ionic-6%20%7C%207-3880ff?logo=ionic&logoColor=white)](#compatibility) [![status: unmaintained](https://img.shields.io/badge/status-unmaintained-critical)](#-this-project-is-deprecated) [![CI](https://github.com/almothafar/ionic-hidenav/actions/workflows/ci.yml/badge.svg)](https://github.com/almothafar/ionic-hidenav/actions/workflows/ci.yml)
+[![npm version][npm-image]][npm-url]
+[![license](https://img.shields.io/npm/l/@almothafar/ionic-hidenav)](LICENSE.md)
+[![Angular](https://img.shields.io/badge/Angular-14%20%7C%2015-dd0031?logo=angular&logoColor=white)](#compatibility)
+[![Ionic](https://img.shields.io/badge/Ionic-6%20%7C%207-3880ff?logo=ionic&logoColor=white)](#compatibility)
+[![status: unmaintained](https://img.shields.io/badge/status-unmaintained-critical)](#-this-project-is-deprecated)
+[![CI](https://github.com/almothafar/ionic-hidenav/actions/workflows/ci.yml/badge.svg)](https://github.com/almothafar/ionic-hidenav/actions/workflows/ci.yml)
+[![Live demo](https://img.shields.io/badge/demo-live-2dd36f)](https://almothafar.github.io/ionic-hidenav/)
 
 ---
 
@@ -10,17 +16,27 @@ Auto-hiding and stretchable (collapsible) headers for Ionic + Angular.
 
 **`v8.0.0` is the final release. This package is no longer maintained, and this repository is archived.**
 
-It still works on the versions listed below, and the source stays up for anyone pinned to it — but there will be no further releases, no Angular upgrades, and no bug fixes. Please migrate.
+It still works on the versions listed below, and the source stays up for anyone pinned to it — but there
+will be no further releases, no Angular upgrades, and no bug fixes. Please migrate.
+
+👉 **[Live demo](https://almothafar.github.io/ionic-hidenav/)** — both library features and the recommended
+replacement, running side by side.
 
 ### Why
 
 This library cannot move past **Angular 15**, and the reason is structural rather than a matter of effort:
 
-- It depends on [`@ionic-super-tabs/angular`](https://www.npmjs.com/package/@ionic-super-tabs/angular) for its tabs support. That package was **last published in June 2020** and ships as a **View Engine** library (it has a `metadata.json` and `fesm5`/UMD bundles, with no partial-Ivy output).
+- It depends on [`@ionic-super-tabs/angular`](https://www.npmjs.com/package/@ionic-super-tabs/angular)
+  for its tabs support. That package was **last published in June 2020** and ships as a **View Engine**
+  library (it has a `metadata.json` and `fesm5`/UMD bundles, with no partial-Ivy output).
 - View Engine libraries can only be consumed via **ngcc**, and **ngcc was removed in Angular 16**.
-- The tabs directives import it unconditionally, so it cannot simply be made optional without dropping half of the library's feature set.
+- The tabs directives import it unconditionally, so it cannot simply be made optional without dropping
+  half of the library's feature set.
 
-On top of that, Ionic has since shipped a **first-party collapsible header** (`<ion-header collapse="condense">`, available since Ionic 5), which covers the main reason this library existed. Maintaining a jQuery-era shim against Ionic's private shadow-DOM internals is no longer a sensible trade.
+On top of that, Ionic has since shipped a **first-party collapsible header**
+(`<ion-header collapse="condense">`, available since Ionic 5), which covers the main reason this library
+existed. Maintaining a jQuery-era shim against Ionic's private shadow-DOM internals is no longer a
+sensible trade.
 
 ---
 
@@ -49,11 +65,15 @@ No dependencies, first-party, and maintained. Add a second `ion-header` *inside*
 </ion-content>
 ```
 
-> **Note:** `collapse="condense"` renders in **iOS mode only**, mirroring native iOS large titles. `collapse="fade"` is also available. See the [ion-header docs](https://ionicframework.com/docs/api/header).
+> **Note:** `collapse="condense"` renders in **iOS mode only**, mirroring native iOS large titles.
+> `collapse="fade"` is also available. See the
+> [ion-header docs](https://ionicframework.com/docs/api/header).
 
 ### 2. Hide header on scroll → a small standalone directive
 
-Ionic has no first-party equivalent for this one, but it no longer needs a library. This is a complete, dependency-free replacement for the `hidenav-header` / `hidenav-content` pair, and it works on any modern Angular + Ionic:
+Ionic has no first-party equivalent for this one, but it no longer needs a library. This is a complete,
+dependency-free replacement for the `hidenav-header` / `hidenav-content` pair, and it works on any modern
+Angular + Ionic:
 
 ```ts
 import { AfterViewInit, Directive, ElementRef, HostListener, Input, inject } from '@angular/core';
@@ -117,7 +137,9 @@ Usage:
 
 ### 3. Super tabs → `ion-segment` or `ion-tabs`
 
-`@ionic-super-tabs` is itself unmaintained (last release June 2020). Use Ionic's own [`ion-tabs`](https://ionicframework.com/docs/api/tabs), or [`ion-segment`](https://ionicframework.com/docs/api/segment) paired with a swiper for swipeable tabs.
+`@ionic-super-tabs` is itself unmaintained (last release June 2020). Use Ionic's own
+[`ion-tabs`](https://ionicframework.com/docs/api/tabs), or
+[`ion-segment`](https://ionicframework.com/docs/api/segment) paired with a swiper for swipeable tabs.
 
 ---
 
@@ -132,7 +154,8 @@ Verified by building this repository against each combination:
 | ≥ 16    | ≥ 8   |     ❌    | ngcc removed, so the View Engine tabs dependency cannot link. |
 | ≤ 13    | ≤ 6   |     ❌    | Use [`v7.0.1`](https://www.npmjs.com/package/@almothafar/ionic-hidenav/v/7.0.1) for Angular 13. |
 
-> The library's *own* code compiles fine on Angular 16+. It is the `@ionic-super-tabs/angular` dependency that hard-stops it at 15.
+> The library's *own* code compiles fine on Angular 16+. It is the `@ionic-super-tabs/angular`
+> dependency that hard-stops it at 15.
 
 ## Installation
 
@@ -144,15 +167,36 @@ npm i @almothafar/ionic-hidenav
 
 The farewell release — all housekeeping, no new features:
 
-- **Removed the jQuery runtime dependency.** It was used for a handful of `attr()` / `closest()` / `parents()` calls, now replaced with equivalent native DOM in `src/lib/hidenav-dom.ts`. This drops ~30 KB gzipped from every consumer bundle.
-- **Removed all `eval()` usage.** Three call sites passed code as strings to poll for element dimensions; they are plain closures now, so the library works under a strict Content-Security-Policy and no longer trips the bundler's `eval` warnings.
-- **Fixed `npm run build:prod`**, which was broken: `tsconfig.lib.prod.json` still set the removed View Engine flag `enableIvy: false`. It now builds in `compilationMode: "partial"`, the correct Angular Package Format output for a published library.
+- **Removed the jQuery runtime dependency.** It was used for a handful of `attr()` / `closest()` /
+  `parents()` calls, now replaced with equivalent native DOM in `src/lib/hidenav-dom.ts`. This drops
+  ~30 KB gzipped from every consumer bundle.
+- **Removed all `eval()` usage.** Three call sites passed code as strings to poll for element
+  dimensions; they are plain closures now, so the library works under a strict Content-Security-Policy
+  and no longer trips the bundler's `eval` warnings.
+- **Fixed the hide-on-scroll feature, which did not work at all.** `initiate2()` guarded its state
+  setup with `=== null`, but the per-page state is an array whose properties are `undefined`, so
+  `scrollTop` and `lastscroll` were never initialised. Every subsequent calculation evaluated to `NaN`
+  and the library emitted `translate3d(0, NaNpx, 0)` — invalid CSS that browsers silently drop, so the
+  header never moved. Found by the new e2e suite; see `src/lib/hidenav-service.service.ts`.
+- **Fixed `npm run build:prod`**, which was broken: `tsconfig.lib.prod.json` still set the removed
+  View Engine flag `enableIvy: false`. It now builds in `compilationMode: "partial"`, the correct
+  Angular Package Format output for a published library.
 - **Fixed `npm run build`**, which pointed at `package.json` instead of `ng-package.json`.
-- **Removed the `ModuleWithProviders` global type patch**, an Angular 8-era workaround that broke compilation on Angular 15+.
-- **Pinned every dependency.** The toolchain previously used `"latest"` for Angular and the CLI, so a fresh `npm install` would pull Angular 22 against an Angular 13 codebase and fail immediately.
-- **Widened peer ranges** to Angular 14–15 and Ionic 6–7, and dropped the peer-dependency conflicts (installs cleanly without `--legacy-peer-deps`).
-- Replaced the dead, broken Karma scaffolding (no specs existed; its `core-js/es7` and `zone.js/dist` imports no longer resolved) with unit tests for the new DOM helper, run on Node's built-in test runner against jsdom — `npm test`. They pin the jQuery semantics the helper preserves, and each was checked by mutation to confirm it actually fails when the behaviour changes.
-- Scoped linting to `src/`, and added CI running lint, tests and the production build.
+- **Removed the `ModuleWithProviders` global type patch**, an Angular 8-era workaround that broke
+  compilation on Angular 15+.
+- **Pinned every dependency.** The toolchain previously used `"latest"` for Angular and the CLI, so a
+  fresh `npm install` would pull Angular 22 against an Angular 13 codebase and fail immediately.
+- **Widened peer ranges** to Angular 14–15 and Ionic 6–7, and dropped the peer-dependency conflicts
+  (installs cleanly without `--legacy-peer-deps`).
+- Replaced the dead, broken Karma scaffolding (no specs existed; its `core-js/es7` and `zone.js/dist`
+  imports no longer resolved) with unit tests for the new DOM helper, run on Node's built-in test
+  runner against jsdom — `npm test`. They pin the jQuery semantics the helper preserves, and each was
+  checked by mutation to confirm it actually fails when the behaviour changes.
+- Scoped linting to `src/`, and added CI running lint, unit tests, the production build and e2e.
+- **Added a demo app and an end-to-end suite.** `demo/` is a small Ionic 7 app published to
+  [GitHub Pages](https://almothafar.github.io/ionic-hidenav/), and `e2e/` drives it with Playwright in a
+  mobile Chromium. This is the project's first runtime coverage — and it immediately caught the
+  hide-on-scroll bug above, which no amount of compiling would have surfaced.
 
 ---
 
@@ -236,7 +280,8 @@ This component must be defined outside of `<ion-content>` and comes with require
 
 **home.page.html**
 
-`#shrinkexpand`: This is the element that will shrink and expand with scrolling the page `#static`: Element(s) with this tag will be left alone. You can use these to create buttons on your header for example.
+`#shrinkexpand`: This is the element that will shrink and expand with scrolling the page
+`#static`: Element(s) with this tag will be left alone. You can use these to create buttons on your header for example.
 
 ```html
 <hidenav-stretchheader header-height="50">
@@ -320,7 +365,8 @@ In the following example, both header and content carry the previously mentioned
 ```
 
 ### Adding the hidenav component to a Supertabs page
-Give the `<ion-header>` the `hidenav-header` directive and the `<ion-content>` that holds the `<super-tabs>` component the directive `hidenav-tabscontent`. As for the `<ion-content>` elements in each of the tabs give them the `hidenav-content` and `hidenav-tabspage` directive.
+Give the `<ion-header>` the `hidenav-header` directive and the `<ion-content>` that holds the `<super-tabs>` component the directive `hidenav-tabscontent`.
+As for the `<ion-content>` elements in each of the tabs give them the `hidenav-content` and `hidenav-tabspage` directive.
 ````html
 <ion-header hidenav-header>...</ion-header>
 <ion-content hidenav-tabscontent>
@@ -350,7 +396,9 @@ Give the `<ion-header>` the `hidenav-header` directive and the `<ion-content>` t
 
 ## Credits
 
-This is a fork of [heidji/ionic4-hidenav](https://github.com/heidji/ionic4-hidenav), maintained here for Angular 11–15 after the original went quiet. Thanks to [@heidji](https://github.com/heidji) for the original work.
+This is a fork of [heidji/ionic4-hidenav](https://github.com/heidji/ionic4-hidenav), maintained here for
+Angular 11–15 after the original went quiet. Thanks to [@heidji](https://github.com/heidji) for the
+original work.
 
 ## License
 

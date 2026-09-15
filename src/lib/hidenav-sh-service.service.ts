@@ -81,7 +81,10 @@ export class HidenavShService {
 				if (parentElem.getAttribute('init-expanded') === 'true') {
 					this.data[name].initExpanded = true;
 				}
-				const notchHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--ion-safe-area-top'), 10);
+				// Defensive: Ionic's core CSS defines --ion-safe-area-top (resolving to
+				// 0px without a notch), but if that stylesheet is absent the variable is
+				// empty and parseInt('') would make the header height NaN.
+				const notchHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--ion-safe-area-top'), 10) || 0;
 				this.data[name].shrinkexpandheaderHeight = parseInt(parentElem.getAttribute('header-height'), 10) + notchHeight;
 				this.data[name].opacityFactor = parseInt(parentElem.getAttribute('opacity-factor'), 10);
 				this.data[name].opacityColor = parentElem.getAttribute('opacity-color');
@@ -115,7 +118,10 @@ export class HidenavShService {
 					this.data[name].preserveHeader = true;
 					this.data[parent].preserveHeader = true;
 				}
-				const notchHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--ion-safe-area-top'), 10);
+				// Defensive: Ionic's core CSS defines --ion-safe-area-top (resolving to
+				// 0px without a notch), but if that stylesheet is absent the variable is
+				// empty and parseInt('') would make the header height NaN.
+				const notchHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--ion-safe-area-top'), 10) || 0;
 				this.data[name].shrinkexpandheaderHeight = parseInt(parentElem.getAttribute('header-height'), 10) + notchHeight;
 				this.data[name].opacityFactor = parseInt(parentElem.getAttribute('opacity-factor'), 10);
 				this.data[name].opacityColor = elem.getAttribute('opacity-color');
