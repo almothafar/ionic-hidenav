@@ -5,6 +5,7 @@
   "scripts": {
     "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json",
     "build:prod": "rimraf dist && ng build ionic-hidenav --configuration production",
+    "test": "tsx --test src/**/*.spec.ts",
     "publish:lib": "cd dist/hidenav/ && npm publish --access=public",
     "lint": "ng lint"
   },
@@ -55,16 +56,19 @@
     "@angular/platform-browser-dynamic": "15.2.10",
     "@angular/router": "15.2.10",
     "@ionic/angular": "7.8.6",
+    "@types/jsdom": "^30.0.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "eslint": "8.57.1",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsdoc": "46.10.1",
     "eslint-plugin-prefer-arrow": "1.2.3",
+    "jsdom": "^26.1.0",
     "ng-packagr": "15.2.2",
     "rimraf": "5.0.10",
     "rxjs": "7.8.2",
     "tslib": "2.8.1",
+    "tsx": "^4.23.13",
     "typescript": "4.9.5",
     "zone.js": "0.13.3"
   }

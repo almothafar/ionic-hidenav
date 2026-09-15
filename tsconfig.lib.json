@@ -22,5 +22,8 @@
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true,
     "enableResourceInlining": true
-  }
+  },
+  "exclude": [
+    "**/*.spec.ts"
+  ]
 }
