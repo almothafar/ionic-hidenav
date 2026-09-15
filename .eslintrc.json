@@ -64,7 +64,6 @@
           "off",
           "always"
         ],
-        "import/order": "off",
         "max-len": [
           "error",
           {
