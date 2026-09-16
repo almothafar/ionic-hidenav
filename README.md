@@ -14,6 +14,8 @@ It still works on the versions listed below, and the source stays up for anyone 
 
 👉 **[Live demo](https://almothafar.github.io/ionic-hidenav/)** — both library features and the recommended replacement, running side by side.
 
+> **Viewing tip — emulate a phone, and specifically an iPhone.** The demo works fine in an ordinary desktop browser, but Ionic picks its mode from the user agent, so a desktop window gives you Material (`md`) rendering stretched to full width. Open your browser's device toolbar (in Chrome DevTools, *Toggle device toolbar*) and choose an **iPhone** profile to get `ios` mode — which is where `<hidenav-stretchheader>` swaps its Material drop shadow for the iOS hairline border. An Android profile renders the same `md` as the desktop does, so it only fixes the viewport, not the mode.
+
 ### Why
 
 This library cannot move past **Angular 15**, and the reason is structural rather than a matter of effort:

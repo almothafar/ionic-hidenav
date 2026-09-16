@@ -38,6 +38,16 @@ const scrollTo = async (page: Page, testId: string, y: number): Promise<void> =>
 	await page.waitForTimeout(600);
 };
 
+test.describe('demo index', () => {
+	test('the package name links to the repository', async ({ page }) => {
+		await page.goto('/');
+
+		const link = page.locator('[data-testid="repo-link"]');
+		await expect(link).toBeVisible();
+		await expect(link).toHaveAttribute('href', 'https://github.com/almothafar/ionic-hidenav');
+	});
+});
+
 test.describe('library: hide header on scroll', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto('/#/hide-on-scroll');
