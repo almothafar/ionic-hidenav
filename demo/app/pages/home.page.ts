@@ -11,7 +11,14 @@ import { Component } from '@angular/core';
 
 		<ion-content>
 			<div class="demo-note">
-				Live demo for <strong>&#64;almothafar/ionic-hidenav v8.0.0</strong> &mdash; the final release.
+				Live demo for
+				<a
+					href="https://github.com/almothafar/ionic-hidenav"
+					target="_blank"
+					rel="noopener"
+					data-testid="repo-link"
+				><strong>&#64;almothafar/ionic-hidenav v8.0.0</strong></a>
+				&mdash; the final release.
 				The first two pages exercise the library itself; the third shows the modern,
 				dependency-free replacement recommended in the README.
 			</div>

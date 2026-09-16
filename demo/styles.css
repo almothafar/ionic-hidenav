@@ -42,3 +42,8 @@
 	font-size: 0.875rem;
 	line-height: 1.5;
 }
+
+.demo-note a {
+	color: var(--ion-color-primary, #3880ff);
+	text-decoration: underline;
+}
